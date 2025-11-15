@@ -304,7 +304,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 - � **Bug Reports**: เปิด [Issue](https://github.com/your-username/discord-server-manager/issues)
 - 💡 **Feature Requests**: เปิด [Issue](https://github.com/your-username/discord-server-manager/issues) พร้อมป้ายกำกับ "enhancement"
-- 📧 **Email**: your-email@example.com
 
 ## � Roadmap
 
