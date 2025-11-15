@@ -1,0 +1,27 @@
+{
+  "name": "discord-server-manager",
+  "version": "1.0.0",
+  "description": "Discord Server Management System with Web GUI",
+  "scripts": {
+    "install": "cd backend && npm install && cd ../frontend && npm install",
+    "start": "./start.sh",
+    "start:backend": "./start-backend.sh",
+    "start:frontend": "./start-frontend.sh",
+    "dev": "./dev.sh",
+    "stop": "./stop.sh"
+  },
+  "keywords": [
+    "discord",
+    "bot",
+    "server-management",
+    "gui",
+    "drag-drop",
+    "react"
+  ],
+  "author": "",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": ""
+  }
+}
