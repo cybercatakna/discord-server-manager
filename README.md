@@ -13,8 +13,6 @@
 ## ✨ ฟีเจอร์เด่น
 
 ### 🎯 การจัดการช่องและหมวดหมู่
-
-### 🎯 การจัดการช่องและหมวดหมู่
 - สร้างหมวดหมู่ (Categories) ใหม่
 - สร้างห้อง Text Channel และ Voice Channel
 - **ลากและวางเพื่อย้ายช่องระหว่างหมวดหมู่** (Drag & Drop)
@@ -34,218 +32,145 @@
 - **🔒 จัดการสิทธิ์ช่องแบบขั้นสูง (Allow/Neutral/Deny)** 🆕
 
 ### 👥 การจัดการสมาชิก
-- ดูรายชื่อสมาชิกทั้งหมดในเซิร์ฟเวอร์
-- เพิ่มยศให้สมาชิก
-- ลบยศจากสมาชิก
+- ดูรายชื่อสมาชิกทั้งหมดในเซิร์ฟเวอร์พร้อมสถานะออนไลน์
+- ค้นหาสมาชิกด้วยชื่อหรือ username แบบ real-time
+- เพิ่มหรือลบยศให้สมาชิก
 - แสดงยศปัจจุบันของแต่ละคน
 
-## 🚀 การติดตั้ง
+## 🚀 การติดตั้งและรันโปรเจค
 
 ### ข้อกำหนดเบื้องต้น
 - Node.js (เวอร์ชัน 16 ขึ้นไป)
 - Discord Bot Token
 - npm หรือ yarn
 
-### 1. สร้าง Discord Bot
+### ขั้นตอนที่ 1: สร้าง Discord Bot
 
 1. ไปที่ [Discord Developer Portal](https://discord.com/developers/applications)
-2. คลิก "New Application" และตั้งชื่อ
-3. ไปที่เมนู "Bot" และคลิก "Add Bot"
-4. คัดลอก Token (จะใช้ในขั้นตอนถัดไป)
-5. เปิดใช้งาน Privileged Gateway Intents:
-   - ✅ PRESENCE INTENT
-   - ✅ SERVER MEMBERS INTENT
-   - ✅ MESSAGE CONTENT INTENT
-6. ไปที่เมนู "OAuth2" > "URL Generator"
-7. เลือก Scopes: `bot` และ `applications.commands`
-8. เลือก Bot Permissions:
-   - ✅ Manage Channels
-   - ✅ Manage Roles
-   - ✅ View Channels
-   - ✅ Send Messages
-   - ✅ Manage Server
-9. คัดลอก URL ที่สร้างขึ้นและเปิดในเบราว์เซอร์เพื่อเชิญ Bot เข้า Server
+2. คลิก **"New Application"** และตั้งชื่อ Bot ของคุณ
+3. ไปที่เมนู **"Bot"** → คลิก **"Add Bot"**
+4. **Reset Token** และคัดลอก Token (เก็บไว้ใช้ในขั้นตอนถัดไป)
+5. เปิดใช้งาน **Privileged Gateway Intents** ทั้ง 3 ตัว:
+   - ✅ **PRESENCE INTENT**
+   - ✅ **SERVER MEMBERS INTENT**
+   - ✅ **MESSAGE CONTENT INTENT**
+6. ไปที่เมนู **"OAuth2"** → **"URL Generator"**
+   - Scopes: เลือก `bot` และ `applications.commands`
+   - Bot Permissions: เลือก
+     - ✅ Manage Channels
+     - ✅ Manage Roles
+     - ✅ View Channels
+     - ✅ Manage Server
+7. คัดลอก URL ที่สร้างขึ้นและเปิดในเบราว์เซอร์เพื่อเชิญ Bot เข้า Discord Server ของคุณ
 
-### 2. ติดตั้ง Backend
+### ขั้นตอนที่ 2: ติดตั้งโปรเจค
+
+**วิธีที่ 1: ใช้สคริปต์อัตโนมัติ (แนะนำ)**
 
 ```bash
+# Clone โปรเจค
+git clone https://github.com/cybercatakna/discord-server-manager.git
+cd discord-server-manager
+
+# ติดตั้ง dependencies ทั้ง Backend และ Frontend พร้อมกัน
+chmod +x install.sh
+./install.sh
+```
+
+**วิธีที่ 2: ติดตั้งแบบแยกส่วน**
+
+```bash
+# ติดตั้ง Backend
 cd backend
 npm install
-```
 
-แก้ไขไฟล์ `.env`:
-```env
-DISCORD_TOKEN=ใส่_Token_ของคุณที่นี่
-PORT=3001
-```
-
-### 3. ติดตั้ง Frontend
-
-```bash
+# ติดตั้ง Frontend (เปิด Terminal ใหม่)
 cd frontend
 npm install
 ```
 
----
+### ขั้นตอนที่ 3: ตั้งค่า Environment Variables
 
-## ⚡ วิธีใช้งานแบบง่าย (ด้วย Bash Scripts)
+สร้างไฟล์ `.env` ใน `backend/` โดยคัดลอกจาก `.env.example`:
 
-### ติดตั้งครั้งแรก
 ```bash
-./install.sh
+cd backend
+cp .env.example .env
 ```
-จะติดตั้ง dependencies ทั้ง Backend และ Frontend อัตโนมัติ
 
-### รันโปรเจค
+แก้ไขไฟล์ `backend/.env`:
+```env
+DISCORD_TOKEN=ใส่_Discord_Bot_Token_ของคุณที่นี่
+PORT=3001
+```
 
-**รันทั้งหมดพร้อมกัน (แนะนำ):**
+### ขั้นตอนที่ 4: รันโปรเจค
+
+**วิธีที่ 1: รันทั้งหมดพร้อมกัน (แนะนำ)**
+
 ```bash
 ./start.sh
 ```
 
-**หรือรันแยกส่วน:**
+**วิธีที่ 2: รันแยกส่วน**
+
 ```bash
 # Terminal 1: รัน Backend
 ./start-backend.sh
+# หรือ
+cd backend && npm start
 
 # Terminal 2: รัน Frontend  
 ./start-frontend.sh
+# หรือ
+cd frontend && npm start
 ```
 
-**รัน Backend แบบ Development (รีสตาร์ทอัตโนมัติ):**
+**วิธีที่ 3: รัน Backend แบบ Development Mode (auto-restart)**
+
 ```bash
 ./dev.sh
 ```
 
-**หยุดทั้งหมด:**
+### เข้าใช้งาน
+
+- **Frontend**: http://localhost:3000
+- **Backend API**: http://localhost:3001
+
+### หยุดโปรเจค
+
 ```bash
 ./stop.sh
 ```
 
----
 
-## 🎬 การรันโปรเจค (แบบปกติ)
 
-### เริ่ม Backend (Terminal 1)
-```bash
-cd backend
-npm start
-```
+## 📖 คู่มือการใช้งาน
 
-Backend จะทำงานที่: `http://localhost:3001`
+### 1. เลือกเซิร์ฟเวอร์
+เลือก Discord Server ที่ต้องการจัดการจากดรอปดาวน์ด้านบน
 
-### เริ่ม Frontend (Terminal 2)
-```bash
-cd frontend
-npm start
-```
+### 2. จัดการช่องและหมวดหมู่ (Tab: 📁 ช่องและหมวดหมู่)
+- **สร้างหมวดหมู่/ช่องใหม่**: กรอกชื่อในฟอร์มด้านบน → เลือกประเภท → คลิกสร้าง
+- **ลากและวางช่อง**: คลิกค้างช่องและลากไปวางในหมวดหมู่ที่ต้องการ
+- **ตั้งค่าสิทธิ์ช่อง**: คลิก 🔒 → เลือกยศที่มองเห็นช่องได้
+- **แก้ไขชื่อ**: คลิก ✏️ → พิมพ์ชื่อใหม่ → Enter
+- **ลบช่อง**: คลิก 🗑️ → ยืนยันการลบ
 
-Frontend จะเปิดอัตโนมัติที่: `http://localhost:3000`
+### 3. จัดการยศ (Tab: 🎭 ยศ)
+- **สร้างยศใหม่**: กรอกชื่อ → เลือกสี → คลิกสร้าง
+- **จัดเรียงลำดับ**: ลากและวางยศเพื่อเปลี่ยนลำดับความสำคัญ
+- **ตั้งค่าสิทธิ์**: คลิก ⚙️ Permissions → เลือกสิทธิ์ที่ต้องการ (40+ permissions)
+- **แก้ไขยศ**: คลิกที่ชื่อหรือสี → แก้ไข → Enter
+- **ลบยศ**: คลิก 🗑️ → ยืนยันการลบ
 
-## 📖 วิธีใช้งาน
-
-1. **เลือกเซิร์ฟเวอร์**: เลือกเซิร์ฟเวอร์ที่ต้องการจัดการจากดรอปดาวน์ด้านบน
-
-2. **จัดการช่อง**:
-   - สร้างหมวดหมู่และช่องใหม่จากฟอร์มด้านบน
-   - ลากและวางช่องเพื่อย้ายไปยังหมวดหมู่อื่น
-   - คลิกปุ่ม 🔒 เพื่อตั้งค่าสิทธิ์ (เลือกยศที่เห็นช่องได้)
-   - คลิกปุ่มแก้ไข (✏️) เพื่อเปลี่ยนชื่อ
-   - คลิกปุ่มลบ (🗑️) เพื่อลบ
-
-3. **จัดการยศ**:
-   - สร้างยศใหม่พร้อมเลือกสี
-   - แก้ไขหรือลบยศที่มีอยู่
-
-4. **จัดการสมาชิก**:
-   - ดูรายชื่อสมาชิกทั้งหมด
-   - เพิ่มหรือลบยศจากแต่ละคน
+### 4. จัดการสมาชิก (Tab: 👥 สมาชิก)
+- **ค้นหาสมาชิก**: พิมพ์ชื่อหรือ username ในช่องค้นหา
+- **เพิ่มยศ**: คลิก "เพิ่มยศ" → เลือกยศจากดรอปดาวน์
+- **ลบยศ**: คลิก ❌ ที่ยศที่ต้องการลบออก
+- **ดูสถานะ**: ดูสมาชิกที่ออนไลน์ (จุดสีเขียว) และออฟไลน์ (จุดสีเทา)
 
 ## 🛠️ เทคโนโลยีที่ใช้
-
-### Backend
-- **Node.js** - Runtime
-- **Express.js** - Web Framework
-- **Discord.js v14** - Discord API Library
-
-### Frontend
-- **React** - UI Library
-- **React DnD** - Drag and Drop Library
-- **HTML5 Drag and Drop API** - Native Browser API
-
-## 📁 โครงสร้างโปรเจค
-
-```
-discord/
-├── backend/
-│   ├── bot.js           # Discord Bot และ API Server
-│   ├── package.json     # Dependencies
-│   └── .env            # ตัวแปรสภาพแวดล้อม
-│
-└── frontend/
-    ├── public/
-    │   └── index.html
-    ├── src/
-    │   ├── components/
-    │   │   ├── ServerSelector.js    # เลือกเซิร์ฟเวอร์
-    │   │   ├── ChannelManager.js    # จัดการช่อง (Drag & Drop)
-    │   │   ├── RoleManager.js       # จัดการยศ
-    │   │   └── MemberManager.js     # จัดการสมาชิก
-    │   ├── App.js          # หน้าหลัก
-    │   ├── App.css         # สไตล์
-    │   └── index.js        # Entry Point
-    └── package.json
-```
-
-## 🔒 ความปลอดภัย
-
-- ⚠️ **อย่าแชร์ Token** ของ Bot กับใครเป็นอันขาด
-- ไฟล์ `.env` ถูกเพิ่มใน `.gitignore` แล้ว
-- ควรรัน Backend และ Frontend ในเครือข่ายที่ปลอดภัย
-
-## 🐛 การแก้ไขปัญหา
-
-### Bot ไม่ออนไลน์
-- ตรวจสอบว่า Token ถูกต้อง
-- ตรวจสอบว่าเปิดใช้งาน Intents ครบถ้วน
-
-### ไม่สามารถจัดการช่อง/ยศได้
-- ตรวจสอบว่า Bot มีสิทธิ์เพียงพอ
-- Role ของ Bot ต้องอยู่สูงกว่า Role ที่ต้องการจัดการ
-
-### Drag & Drop ไม่ทำงาน
-- ตรวจสอบว่าเบราว์เซอร์รองรับ HTML5 Drag and Drop
-- ลองรีเฟรชหน้าเว็บ
-
-## 📚 เอกสารประกอบ
-
-### Bash Scripts
-- `install.sh` - สคริปต์ติดตั้ง dependencies
-- `start.sh` - รันทั้ง Backend และ Frontend พร้อมกัน
-- `start-backend.sh` - รัน Backend อย่างเดียว
-- `start-frontend.sh` - รัน Frontend อย่างเดียว
-- `dev.sh` - รัน Backend แบบ Development Mode
-- `stop.sh` - หยุดทุกอย่าง
-
-### คู่มือการใช้งาน
-- `QUICKSTART.md` - คู่มือเริ่มต้นด่วน (3 ขั้นตอน)
-- `INSTALLATION.md` - คู่มือติดตั้งแบบละเอียด
-- `SCRIPTS.md` - คู่มือ Bash Scripts แบบละเอียด
-- `PERMISSIONS-GUIDE.md` - คู่มือสิทธิ์ช่องพื้นฐาน
-- **`ROLE-PERMISSIONS-GUIDE.md` - คู่มือยศและสิทธิ์แบบครบถ้วน** 🆕
-- `EXAMPLES.md` - ตัวอย่างการใช้งานจริง
-- `CHEATSHEET.txt` - สรุปคำสั่งที่ใช้บ่อย
-
-## 🆕 ฟีเจอร์ล่าสุด (v3.0)
-
-- ✅ **Toast Notifications** - แจ้งเตือนแบบ popup สวยงาม แทนที่ alert()
-- ✅ **Confirmation Dialogs** - กล่องยืนยันแบบ custom พร้อม animations
-- ✅ **Error Boundary** - จัดการ error ที่ไม่คาดคิด แสดงหน้า error ที่เป็นมิตร
-- ✅ **Member Search** - ค้นหาสมาชิกด้วยชื่อหรือ username แบบ real-time
-- ✅ **Role Hierarchy Management** - จัดการลำดับยศด้วย drag-and-drop
-- ✅ **Advanced Channel Permissions** - ระบบสิทธิ์แบบ Allow/Neutral/Deny
-
-## 🏗️ เทคโนโลยีที่ใช้
 
 ### Backend
 - **Node.js** - JavaScript runtime
@@ -256,8 +181,113 @@ discord/
 ### Frontend
 - **React 18** - UI library
 - **react-dnd** - Drag and drop functionality
-- **Context API** - State management
+- **Context API** - State management (Toast, Confirm, Error Boundary)
 - **CSS3** - Styling with animations
+
+## 📁 โครงสร้างโปรเจค
+
+```
+discord-server-manager/
+├── backend/                      # Node.js + Express API
+│   ├── bot.js                   # Discord bot และ API endpoints
+│   ├── .env                     # Environment variables (ไม่ commit)
+│   ├── .env.example             # ตัวอย่างการตั้งค่า
+│   └── package.json
+│
+├── frontend/                    # React application
+│   ├── public/
+│   │   └── index.html
+│   ├── src/
+│   │   ├── components/
+│   │   │   ├── ServerSelector.js          # เลือก Discord Server
+│   │   │   ├── ChannelManager.js          # จัดการช่องและหมวดหมู่
+│   │   │   ├── DraggableChannel.js        # Drag & Drop ช่อง
+│   │   │   ├── ChannelPermissions.js      # สิทธิ์ช่องพื้นฐาน
+│   │   │   ├── AdvancedChannelPermissions.js  # สิทธิ์ขั้นสูง
+│   │   │   ├── RoleManager.js             # จัดการยศ
+│   │   │   ├── DraggableRole.js           # Drag & Drop ยศ
+│   │   │   ├── RolePermissionsManager.js  # จัดการสิทธิ์ยศ 40+
+│   │   │   ├── MemberManager.js           # จัดการสมาชิก
+│   │   │   ├── ToastContext.js            # Toast Notifications
+│   │   │   ├── ConfirmContext.js          # Confirmation Dialogs
+│   │   │   └── ErrorBoundary.js           # Error Boundary
+│   │   ├── App.js                         # หน้าหลัก
+│   │   ├── App.css                        # Global styles
+│   │   └── index.js                       # Entry point
+│   └── package.json
+│
+├── .gitignore                   # Git ignore rules
+├── LICENSE                      # MIT License
+├── README.md                    # เอกสารโปรเจค
+├── package.json                 # Root package config
+│
+└── Scripts/                     # Bash scripts
+    ├── install.sh              # ติดตั้ง dependencies
+    ├── start.sh                # รันทั้งหมดพร้อมกัน
+    ├── start-backend.sh        # รัน Backend
+    ├── start-frontend.sh       # รัน Frontend
+    ├── dev.sh                  # Development mode
+    └── stop.sh                 # หยุดทุกอย่าง
+```
+
+## 🔒 ความปลอดภัย
+
+- ⚠️ **อย่าแชร์ Token** ของ Bot กับใครเป็นอันขาด
+- ไฟล์ `.env` ถูกเพิ่มใน `.gitignore` แล้ว
+- ควรรัน Backend และ Frontend ในเครือข่ายที่ปลอดภัย
+
+## 🐛 การแก้ไขปัญหา
+
+### 🔴 Bot ไม่ออนไลน์
+**สาเหตุและวิธีแก้:**
+- ✅ ตรวจสอบว่า `DISCORD_TOKEN` ใน `.env` ถูกต้อง
+- ✅ ตรวจสอบว่าเปิดใช้งาน **Privileged Gateway Intents** ครบทั้ง 3 ตัว
+- ✅ ตรวจสอบว่า Backend กำลังรันอยู่ (`npm start` ใน `backend/`)
+- ✅ ดู Console เพื่อหา error messages
+
+### 🔴 ไม่สามารถจัดการช่อง/ยศได้
+**สาเหตุและวิธีแก้:**
+- ✅ ตรวจสอบว่า Bot มีสิทธิ์ **Manage Channels** และ **Manage Roles**
+- ✅ **สำคัญ**: Role ของ Bot ต้องอยู่**สูงกว่า** Role ที่ต้องการจัดการ
+- ✅ ลาก Role ของ Bot ไปไว้ที่ตำแหน่งบนสุดใน Server Settings → Roles
+
+### 🔴 Drag & Drop ไม่ทำงาน
+**สาเหตุและวิธีแก้:**
+- ✅ ตรวจสอบว่าใช้เบราว์เซอร์ที่รองรับ (Chrome, Firefox, Edge)
+- ✅ ลองรีเฟรชหน้าเว็บ (Ctrl + F5 / Cmd + Shift + R)
+- ✅ เช็ค Console (F12) เพื่อดู errors
+
+### 🔴 Error: "Cannot read properties of undefined"
+**สาเหตุและวิธีแก้:**
+- ✅ ตรวจสอบว่าเลือก Server แล้ว (Dropdown ด้านบน)
+- ✅ รอให้ข้อมูลโหลดเสร็จก่อนทำการอะไร
+- ✅ รีเฟรชหน้าเว็บ
+
+### � CORS Error
+**สาเหตุและวิธีแก้:**
+- ✅ ตรวจสอบว่า Backend รันที่ port 3001
+- ✅ ตรวจสอบว่า Frontend รันที่ port 3000
+- ✅ รีสตาร์ท Backend และ Frontend
+
+## ⚙️ Bash Scripts
+
+| Script | คำอธิบาย | การใช้งาน |
+|--------|----------|-----------|
+| `install.sh` | ติดตั้ง dependencies ทั้ง Backend และ Frontend | `./install.sh` |
+| `start.sh` | รัน Backend และ Frontend พร้อมกัน | `./start.sh` |
+| `start-backend.sh` | รันเฉพาะ Backend | `./start-backend.sh` |
+| `start-frontend.sh` | รันเฉพาะ Frontend | `./start-frontend.sh` |
+| `dev.sh` | รัน Backend แบบ Development (auto-restart) | `./dev.sh` |
+| `stop.sh` | หยุดทุกอย่างที่กำลังรัน | `./stop.sh` |
+
+## 🆕 ฟีเจอร์ล่าสุด (v3.0)
+
+- ✅ **Toast Notifications** - ระบบแจ้งเตือนแบบ popup สวยงาม 4 รูปแบบ (success, error, warning, info)
+- ✅ **Confirmation Dialogs** - กล่องยืนยันแบบ custom พร้อม animations แทน window.confirm()
+- ✅ **Error Boundary** - จัดการ React errors อัตโนมัติ แสดงหน้า error ที่เป็นมิตรแทนหน้าจอขาว
+- ✅ **Member Search** - ค้นหาสมาชิกด้วยชื่อหรือ username แบบ real-time
+- ✅ **Role Hierarchy Drag & Drop** - จัดการลำดับยศด้วยการลากและวาง
+- ✅ **Advanced Channel Permissions** - ระบบสิทธิ์แบบ Allow/Neutral/Deny สำหรับแต่ละยศ
 
 ## 📊 โครงสร้างโปรเจค
 
@@ -287,14 +317,22 @@ discord-server-manager/
 
 ## 🤝 การมีส่วนร่วม
 
-เรายินดีรับ contributions! กรุณาอ่าน [CONTRIBUTING.md](CONTRIBUTING.md) สำหรับรายละเอียด
+เรายินดีรับ Pull Requests เสมอ! 🎉
 
 ### วิธีการมีส่วนร่วม:
-1. Fork โปรเจค
-2. สร้าง feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit การเปลี่ยนแปลง (`git commit -m 'Add some AmazingFeature'`)
-4. Push ไปยัง branch (`git push origin feature/AmazingFeature`)
-5. เปิด Pull Request
+1. **Fork** โปรเจคนี้
+2. สร้าง **feature branch** (`git checkout -b feature/AmazingFeature`)
+3. **Commit** การเปลี่ยนแปลง (`git commit -m 'feat: Add some AmazingFeature'`)
+4. **Push** ไปยัง branch (`git push origin feature/AmazingFeature`)
+5. เปิด **Pull Request**
+
+### Commit Message Convention:
+- `feat:` - ฟีเจอร์ใหม่
+- `fix:` - แก้ไขบั๊ก
+- `docs:` - เปลี่ยนแปลง documentation
+- `style:` - จัดรูปแบบโค้ด
+- `refactor:` - ปรับปรุงโค้ด
+- `test:` - เพิ่มการทดสอบ
 
 ## 📝 License
 
@@ -322,17 +360,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - [ ] 🔐 Two-factor authentication
 - [ ] 📈 Analytics and insights
 
-## ⭐ Star History
-
-หากโปรเจคนี้มีประโยชน์กับคุณ กรุณากด ⭐ Star เพื่อสนับสนุนเรา!
-
 ---
 
 <div align="center">
 
+## ⭐ ถ้าชอบโปรเจคนี้
+
+กรุณากด **Star** ⭐ บน GitHub เพื่อสนับสนุนเรา!
+
 **สร้างด้วย ❤️ สำหรับชุมชน Discord**
 
-[Report Bug](https://github.com/your-username/discord-server-manager/issues) · [Request Feature](https://github.com/your-username/discord-server-manager/issues) · [Documentation](https://github.com/your-username/discord-server-manager/wiki)
+[![GitHub stars](https://img.shields.io/github/stars/cybercatakna/discord-server-manager?style=social)](https://github.com/cybercatakna/discord-server-manager/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/cybercatakna/discord-server-manager?style=social)](https://github.com/cybercatakna/discord-server-manager/network)
+
+[🐛 Report Bug](https://github.com/cybercatakna/discord-server-manager/issues) · [💡 Request Feature](https://github.com/cybercatakna/discord-server-manager/issues) · [📖 Wiki](https://github.com/cybercatakna/discord-server-manager/wiki)
 
 </div>
-# discord-server-manager
